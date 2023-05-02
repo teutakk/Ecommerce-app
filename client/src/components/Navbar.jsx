@@ -17,6 +17,8 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   padding: 10px 20px;
+  /* border: 2px solid red; */
+  background-color: #c3efef;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -62,6 +64,7 @@ const Right = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  /* margin-right: 50px; */
   ${mobile({ flex: 2, justifyContent: "center" })}
 `;
 
@@ -94,11 +97,11 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>LAMA.</Logo>
+          <Logo>E-Shop</Logo>
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
-           <MenuItem >{`Log out`}</MenuItem>
+           <MenuItem >{`LOG OUT`}</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
           <Link to="/cart">
             <MenuItem>

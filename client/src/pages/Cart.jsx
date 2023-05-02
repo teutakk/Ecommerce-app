@@ -9,7 +9,7 @@ import StripeCheckout from "react-stripe-checkout"
 import { useState } from "react";
 import { useEffect } from "react";
 import { userRequest } from "../requestMethods"
-import { useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 const KEY = process.env.REACT_APP_STRIPE
 
 const Container = styled.div``;
@@ -39,6 +39,9 @@ const TopButton = styled.button`
   background-color: ${(props) =>
     props.type === "filled" ? "black" : "transparent"};
   color: ${(props) => props.type === "filled" && "white"};
+  a{
+    text-decoration: none;
+  }
 `;
 
 const TopTexts = styled.div`
@@ -165,6 +168,9 @@ const Cart = () => {
 
   const cart = useSelector(state => state.cart)
 
+  const location = useLocation();
+  const cat = location.pathname.split("/")[2];
+
   const [stripeToken, setStripeToken] = useState(null)
 
   const navigate = useNavigate()
@@ -196,12 +202,13 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton> <Link to={`/products/woman`}>CONTINUE SHOPPING</Link></TopButton>
           <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
+          
+            <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          {/* <TopButton type="filled">CHECKOUT NOW</TopButton> */}
         </Top>
         <Bottom>
           <Info>

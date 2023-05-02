@@ -1,0 +1,23 @@
+
+div{
+    position: relative;
+    /* overflow: hidden; */
+}
+.sliding-word{
+    animation-name: wordslider;
+    animation-duration: 28s;
+    animation-iteration-count:infinite;
+    animation-timing-function:linear;
+
+    
+  }
+
+@keyframes wordslider{
+
+    0%{
+      transform: translateX(850px);
+    }
+    100%{
+      transform: translateX(-870px)
+    }
+}
