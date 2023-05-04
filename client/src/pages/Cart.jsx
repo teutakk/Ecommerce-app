@@ -172,6 +172,8 @@ const Cart = () => {
   const cat = location.pathname.split("/")[2];
 
   const [stripeToken, setStripeToken] = useState(null)
+  const [quantity, setQuantity] = useState(1)
+
 
   const navigate = useNavigate()
 
@@ -188,13 +190,23 @@ const Cart = () => {
           amount: 500,
         })
         navigate("/success", {stripeData: res.data, 
-          products:cart,
+          products: cart,
         })
-      } catch (error) {}
+      } catch (error) {
+        // console.log(error);
+      }
     }
     stripeToken && makeRequest()
   }, [stripeToken, cart.total, navigate])
 
+  const handleQuantity = (type, id) => {
+    if(type === "dec"){
+      quantity > 1 && setQuantity(quantity-1)
+    }else{
+      setQuantity(quantity+1)
+    }
+  }
+  // console.log(quantity);
   return (
     <Container>
       <Navbar />
@@ -212,9 +224,11 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            {cart.products.map(product => (
+            {cart.products.map(product => {
+              
+              return(
 
-            <Product>
+            <Product  >
               <ProductDetail>
                 <Image src={product.img} />
                 <Details>
@@ -235,11 +249,16 @@ const Cart = () => {
                   <Add />
                   <ProductAmount>{product.quantity}</ProductAmount>
                   <Remove />
+                  {/* <Remove onClick={() => handleQuantity("dec", product._id)} style={{cursor: "pointer"}} />
+                  <ProductAmount>{ quantity}</ProductAmount>
+                  <Add onClick={() => handleQuantity("asc", product._id)} style={{cursor: "pointer"}} /> */}
                 </ProductAmountContainer>
                 <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
               </PriceDetail>
             </Product>
-            ))}
+              
+              )})}
+
             <Hr />
             
           </Info>
