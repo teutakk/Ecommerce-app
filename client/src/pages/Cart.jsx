@@ -4,12 +4,14 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import StripeCheckout from "react-stripe-checkout"
 import { useState } from "react";
 import { useEffect } from "react";
 import { userRequest } from "../requestMethods"
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import { clearCart } from "../redux/cartRedux";
+
 const KEY = process.env.REACT_APP_STRIPE
 
 const Container = styled.div``;
@@ -166,22 +168,17 @@ const Button = styled.button`
 
 const Cart = () => {
 
-  const cart = useSelector(state => state.cart)
-
-  const location = useLocation();
-  const cat = location.pathname.split("/")[2];
+  const cart = useSelector((state) => state.cart)
 
   const [stripeToken, setStripeToken] = useState(null)
-  const [quantity, setQuantity] = useState(1)
-
-
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const onToken = (token) =>{
     setStripeToken(token)
   }
   // console.log(stripeToken);
-
+ 
   useEffect(() => {
     const makeRequest = async() => {
       try {
@@ -189,23 +186,33 @@ const Cart = () => {
           tokenId: stripeToken.id,
           amount: 500,
         })
+        dispatch(clearCart());
         navigate("/success", {stripeData: res.data, 
           products: cart,
         })
+        console.log(cart)
+        // cart === null
+        // clearCart()
       } catch (error) {
         // console.log(error);
       }
     }
-    stripeToken && makeRequest()
-  }, [stripeToken, cart.total, navigate])
+    // if (stripeToken && cart.total) {
+      console.log(cart.total)
 
-  const handleQuantity = (type, id) => {
-    if(type === "dec"){
-      quantity > 1 && setQuantity(quantity-1)
-    }else{
-      setQuantity(quantity+1)
-    }
-  }
+      stripeToken && makeRequest()
+      // makeRequest();
+
+    // }
+  }, [stripeToken, cart, navigate])
+
+  // const handleQuantity = (type, id) => {
+  //   if(type === "dec"){
+  //     quantity > 1 && setQuantity(quantity-1)
+  //   }else{
+  //     setQuantity(quantity+1)
+  //   }
+  // }
   // console.log(quantity);
   return (
     <Container>
@@ -289,6 +296,7 @@ const Cart = () => {
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
+              onClick={() => dispatch(clearCart())}
 
             >
               <Button>CHECKOUT NOW</Button>
