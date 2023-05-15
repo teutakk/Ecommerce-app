@@ -5,10 +5,8 @@ import styled from "styled-components";
 import { mobile } from "../responsive";
 import {useSelector} from "react-redux"
 import { Link } from "react-router-dom";
-import { logout } from "../redux/userRedux";
+import { logout } from "../redux/apiCalls";
 import { useDispatch } from "react-redux";
-
-
 
 const Container = styled.div`
   height: 60px;
@@ -82,10 +80,6 @@ const Navbar = () => {
   // console.log(quantity);
   // const user = true;
 
-  // const handleLog = (e) => {
-  //   logout(dispatch)
-    
-  // }
   return (
     <Container>
       <Wrapper>
@@ -101,7 +95,7 @@ const Navbar = () => {
         </Center>
         <Right>
           <MenuItem>REGISTER</MenuItem>
-           <MenuItem >{`LOG OUT`}</MenuItem>
+           <MenuItem onClick={() => logout(dispatch)}>LOG OUT</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
           <Link to="/cart">
             <MenuItem>

@@ -169,51 +169,54 @@ const Button = styled.button`
 const Cart = () => {
 
   const cart = useSelector((state) => state.cart)
+  // const order = useSelector((state) => state.order)
 
   const [stripeToken, setStripeToken] = useState(null)
+  
   const dispatch = useDispatch()
+
   const navigate = useNavigate()
 
   const onToken = (token) =>{
     setStripeToken(token)
   }
-  // console.log(stripeToken);
- 
+
+  // useEffect(() => {
+  //   const getOrder = async () => {
+  //     try {
+  //       const res = await publicRequest.get("/products/find/" + id)
+  //       setProduct(res.data)
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   getOrder()
+  // }, [id])
+
   useEffect(() => {
     const makeRequest = async() => {
       try {
         const res = await userRequest.post("/checkout/payment", {
           tokenId: stripeToken.id,
-          amount: 500,
+          amount: cart.total * 100
         })
-        dispatch(clearCart());
         navigate("/success", {stripeData: res.data, 
           products: cart,
         })
-        console.log(cart)
-        // cart === null
-        // clearCart()
+        dispatch(clearCart())
+
       } catch (error) {
-        // console.log(error);
+        console.log(error);
+        // res.json({message:"Errorrrrr"})
       }
     }
-    // if (stripeToken && cart.total) {
-      console.log(cart.total)
+    
+      if (stripeToken && cart.total) {
+        makeRequest();
+      }
+       
+  }, [stripeToken, cart.total, navigate, dispatch, cart])
 
-      stripeToken && makeRequest()
-      // makeRequest();
-
-    // }
-  }, [stripeToken, cart, navigate])
-
-  // const handleQuantity = (type, id) => {
-  //   if(type === "dec"){
-  //     quantity > 1 && setQuantity(quantity-1)
-  //   }else{
-  //     setQuantity(quantity+1)
-  //   }
-  // }
-  // console.log(quantity);
   return (
     <Container>
       <Navbar />
@@ -297,7 +300,6 @@ const Cart = () => {
               token={onToken}
               stripeKey={KEY}
               onClick={() => dispatch(clearCart())}
-
             >
               <Button>CHECKOUT NOW</Button>
             </StripeCheckout>

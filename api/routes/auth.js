@@ -60,4 +60,14 @@ router.post("/login", async (req, res) => {
     }
 } )
 
+// router.post("/logout", async (req, res) => {
+//     try {
+//       // Perform any necessary logout logic, such as clearing sessions, tokens, or cookies
+//     // //   localStorage.removeItem("persist:root");
+//       res.status(200).json("Logout successful");
+//     } catch (err) {
+//       res.status(500).json(err);
+//     }
+//   });
+
 module.exports = router

@@ -95,7 +95,7 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)} 
           />
           <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-          {error && <Error>Sometin wron</Error>}
+          {error && <Error>Something wrong</Error>}
           <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
           <Link>CREATE A NEW ACCOUNT</Link>
         </Form>
