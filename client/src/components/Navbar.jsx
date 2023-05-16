@@ -76,6 +76,7 @@ const MenuItem = styled.div`
 const Navbar = () => {
 
   const quantity = useSelector(state => state.cart.quantity)
+  const logged = useSelector(state => state.user.currentUser)
   const dispatch = useDispatch()
   // console.log(quantity);
   // const user = true;
@@ -91,12 +92,13 @@ const Navbar = () => {
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>E-Shop</Logo>
+          <Logo><Link style={{ textDecoration: "none", color:"#111" }} to="/">E-Shop</Link></Logo>
         </Center>
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-           <MenuItem onClick={() => logout(dispatch)}>LOG OUT</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          {/* <MenuItem>REGISTER</MenuItem> */}
+           {!logged && <MenuItem onClick={() => logout(dispatch)}><Link style={{ textDecoration: "none", color:"#111" }} to="/login">LOG IN</Link></MenuItem>}
+           {logged && <MenuItem onClick={() => logout(dispatch)}>LOG OUT</MenuItem>}
+          {/* <MenuItem>SIGN IN</MenuItem> */}
           <Link to="/cart">
             <MenuItem>
               <Badge badgeContent={quantity} color="primary">
