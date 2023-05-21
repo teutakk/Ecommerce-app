@@ -21,20 +21,10 @@ const userSlice = createSlice({
             state.error = true
         },
         logout: (state) => {
-            state.currentUser = null
-        },
-        // getUsersStart: (state) => {
-        //     state.isFetching = true
-        //     state.error = false
-        // },
-        // getUsersSuccess: (state, action) => {
-        //     state.isFetching = false
-        //     state.currentUser = action.payload
-        // },
-        // getUsersFailure: (state) => {
-        //     state.isFetching = false
-        //     state.error = true
-        // },
+            state.currentUser = null;
+            state.isFetching = false;
+            state.error = false
+        }
     }
 });
 

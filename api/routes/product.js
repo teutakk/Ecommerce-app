@@ -87,4 +87,32 @@ router.get("/", async (req, res)=>{
     }
 })
 
+
+// router.get("/searc", (req, res) => {
+//     const { q } = req.query;
+  
+//     const keys = ["title"];
+  
+//     const search = (data) => {
+//       return data.filter((item) =>
+//         keys.some((key) => item[key].toLowerCase().includes(q))
+//       );
+//     };
+  
+//     q ? res.json(search(product).slice(0, 10)) : res.json(product.slice(0, 10));
+//   });
+  
+// router.get("/search", async(req, res) => {
+//     const { q } = req.query;
+
+//     const keys = ["title"];
+
+//     const search = (data) => {
+//         return data.filter((item) => 
+//         keys.some((key) => item[key].toLowerCase().includes(q))
+//         )
+//     }
+//     res.json(search(Product).splice(0, 10))
+// })
+
 module.exports = router

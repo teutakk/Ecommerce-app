@@ -58,10 +58,8 @@ export default function NewProduct() {
         });
       }
     );
-
   }
-  // // console.log(inputs);
-  // // console.log(cat);
+  
 
   return (
     <div className="newProduct">

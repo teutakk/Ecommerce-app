@@ -15,19 +15,17 @@ export const login = async (dispatch, user) => {
         dispatch(loginFailure())
     }
 }
-export const logoutAdmin = async (dispatch, user) => {
-
-    // dispatch(l())
+export const logoutAdmin = async (dispatch) => {
 
     try {
-        const res = await publicRequest.post("/auth/login", user)
         
-        dispatch(logout(res.data))
+        dispatch(logout())
 
     } catch (error) {
-        // dispatch(loginFailure())
+
     }
 }
+
 export const getProducts = async (dispatch) => {
 
     dispatch(getProductStart())
