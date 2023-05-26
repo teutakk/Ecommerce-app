@@ -6,6 +6,7 @@ import {
 } from "@material-ui/icons";
 import styled from "styled-components";
 
+
 const Info = styled.div`
   opacity: 0;
   width: 100%;
@@ -37,6 +38,19 @@ const Container = styled.div`
     opacity: 1;
   }
 `;
+const Title = styled.p`
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 10;
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+`
 
 const Circle = styled.div`
   width: 200px;
@@ -68,13 +82,17 @@ const Icon = styled.div`
 `;
 
 const Product = ({ item }) => {
+ 
   return (
     <Container>
       <Circle />
       <Image src={item.img} />
+      <Title>{item.title}</Title>
       <Info>
         <Icon>
-          <ShoppingCartOutlined />
+          <Link style={{color:"#111"}} to={`/cart`}>
+            <ShoppingCartOutlined />
+          </Link>
         </Icon>
         <Icon>
           <Link to={`/product/${item._id}`}>

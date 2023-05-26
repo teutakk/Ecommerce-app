@@ -35,18 +35,18 @@ const Language = styled.span`
   ${mobile({ display: "none" })}
 `;
 
-const SearchContainer = styled.div`
-  border: 0.5px solid lightgray;
-  display: flex;
-  align-items: center;
-  margin-left: 25px;
-  padding: 5px;
-`;
+// const SearchContainer = styled.div`
+//   border: 0.5px solid lightgray;
+//   display: flex;
+//   align-items: center;
+//   margin-left: 25px;
+//   padding: 5px;
+// `;
 
-const Input = styled.input`
-  border: none;
-  ${mobile({ width: "50px" })}
-`;
+// const Input = styled.input`
+//   border: none;
+//   ${mobile({ width: "50px" })}
+// `;
 
 const Center = styled.div`
   flex: 1;
@@ -86,18 +86,19 @@ const Navbar = () => {
       <Wrapper>
         <Left>
           <Language>EN</Language>
-          <SearchContainer>
+          {/* <SearchContainer>
             <Input placeholder="Search" />
             <Search style={{ color: "gray", fontSize: 16 }} />
-          </SearchContainer>
+          </SearchContainer> */}
         </Left>
         <Center>
           <Logo><Link style={{ textDecoration: "none", color:"#111" }} to="/">E-Shop</Link></Logo>
         </Center>
         <Right>
           {/* <MenuItem>REGISTER</MenuItem> */}
-           {!logged && <MenuItem onClick={() => logout(dispatch)}><Link style={{ textDecoration: "none", color:"#111" }} to="/login">LOG IN</Link></MenuItem>}
-           {logged && <MenuItem onClick={() => logout(dispatch)}>LOG OUT</MenuItem>}
+           {!logged && <MenuItem ><Link style={{ textDecoration: "none", color:"#111" }} to="/login">LOG IN</Link></MenuItem>}
+           {!logged && <MenuItem ><Link style={{ textDecoration: "none", color:"#111" }} to="/register">REGISTER</Link></MenuItem>}
+           {logged && <MenuItem onClick={() => logout(dispatch)}>LOG OUT</MenuItem> }
           {/* <MenuItem>SIGN IN</MenuItem> */}
           <Link to="/cart">
             <MenuItem>

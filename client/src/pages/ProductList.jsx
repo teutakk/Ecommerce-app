@@ -4,9 +4,13 @@ import Announcement from "../components/Announcement";
 import Products from "../components/Products";
 import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
+import { Search } from "@material-ui/icons";
+
 import { mobile } from "../responsive";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { publicRequest } from "../requestMethods";
+import axios from "axios";
 
 const Container = styled.div``;
 
@@ -38,6 +42,22 @@ const Select = styled.select`
 `;
 const Option = styled.option``;
 
+
+const SearchContainer = styled.div`
+  border: 0.5px solid lightgray;
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+  padding: 5px;
+  width: fit-content;
+`;
+
+const Input = styled.input`
+  border: none;
+  outline: none;
+  ${mobile({ width: "50px" })}
+`;
+
 const ProductList = () => {
 
   const location = useLocation();
@@ -45,7 +65,40 @@ const ProductList = () => {
 
   const [filters, setFilters] = useState({})
   const [sort, setSort] = useState("newest")
+  const [query, setQuery] = useState("")
+  const [product, setProduct] = useState([])
 
+  useEffect(() => {
+
+    const getProducts = async () => {
+
+      try {
+        const res = await publicRequest.get(`/products/`)
+        setProduct(res.data)
+      } catch (error) {
+        console.log(error);
+      }
+    }
+      getProducts()
+    
+  }, [])
+
+
+  const search = (product) => {
+    return product.filter((item) => item.title.toLowerCase().includes(query))
+  }
+
+  useEffect(() => {
+    if(query.length === 0 || query.length > 2) {
+
+      const filteredProduct = search(product);
+      
+      setProduct(filteredProduct);
+     
+      console.log(filteredProduct)
+    } 
+    
+  }, [query]);
 
   const handleFilters = (e) =>{
     const value = e.target.value;
@@ -59,7 +112,13 @@ const ProductList = () => {
     <Container>
       <Navbar />
       <Announcement />
-      <Title>Dresses</Title>
+      <Title>Products</Title>
+      <SearchContainer>
+            <Input placeholder="Search" name="search" onChange={(e) => setQuery(e.target.value)} />
+            <Search style={{ color: "gray", fontSize: 16, position:"relative" }} >
+                  <span style={{position: "absolute", backgroundColor: "red"}}>{query.length === 0 || query.length > 2 ? "": "error"}</span>
+              </Search>
+          </SearchContainer>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
@@ -94,7 +153,7 @@ const ProductList = () => {
           </Select>
         </Filter>
       </FilterContainer>
-      <Products cat={cat} filters={filters} sort={sort} />
+      <Products search={search(product)} cat={cat} filters={filters} sort={sort} />
       <Newsletter />
       <Footer />
     </Container>

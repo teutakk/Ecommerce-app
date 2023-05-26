@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { popularProducts } from "../data";
 import Product from "./Product";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -9,10 +8,11 @@ const Container = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    /* border: 2px solid red; */
 `;
 
-const Products = ({cat, filters, sort}) => {
-  // console.log(cat, filters, sort);
+const Products = ({cat, filters, sort, search}) => {
+
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
@@ -28,7 +28,7 @@ const Products = ({cat, filters, sort}) => {
             setProducts(res.data)
 
       } catch (error) {
-        
+        console.log(error)
       }
     }
     getProducts()
@@ -43,6 +43,8 @@ const Products = ({cat, filters, sort}) => {
     )
   )
   },[products, cat, filters])
+  
+
 
   useEffect(() =>{
     if(sort === "Newest"){
@@ -66,11 +68,15 @@ const Products = ({cat, filters, sort}) => {
     }
   }, [sort])
 
+  useEffect(() => {
+
+  })
+
   return (
     <Container>
       {cat 
         ? filteredProducts.map((item) => ( <Product item={item} key={item.id} />)) 
-        : products.slice(1, 5).map((item) => ( <Product item={item} key={item.id} /> ))}
+        : products.slice(4, 9).map((item) => ( <Product item={item} key={item.id} /> ))}
     </Container>
   );
 };

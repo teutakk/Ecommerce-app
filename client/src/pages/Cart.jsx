@@ -169,6 +169,7 @@ const Button = styled.button`
 const Cart = () => {
 
   const cart = useSelector((state) => state.cart)
+  const user = useSelector((state) => state.user.currentUser)
   // const order = useSelector((state) => state.order)
 
   const [stripeToken, setStripeToken] = useState(null)
@@ -196,18 +197,22 @@ const Cart = () => {
   useEffect(() => {
     const makeRequest = async() => {
       try {
-        const res = await userRequest.post("/checkout/payment", {
-          tokenId: stripeToken.id,
-          amount: cart.total * 100
-        })
-        navigate("/success", {stripeData: res.data, 
-          products: cart,
-        })
-        dispatch(clearCart())
+        if(user){
+          const res = await userRequest.post("/checkout/payment", {
+            tokenId: stripeToken.id,
+            amount: cart.total * 100
+          })
+          navigate("/success", {stripeData: res.data, 
+            products: cart,
+          })
+          dispatch(clearCart())
+        }
+        else{
+          navigate("/failed")
+        }
 
       } catch (error) {
         console.log(error);
-        // res.json({message:"Errorrrrr"})
       }
     }
     
@@ -238,7 +243,7 @@ const Cart = () => {
               
               return(
 
-            <Product  >
+            <Product key={product._id} >
               <ProductDetail>
                 <Image src={product.img} />
                 <Details>
@@ -264,6 +269,7 @@ const Cart = () => {
                   <Add onClick={() => handleQuantity("asc", product._id)} style={{cursor: "pointer"}} /> */}
                 </ProductAmountContainer>
                 <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                <div>Remove from Cart</div>
               </PriceDetail>
             </Product>
               

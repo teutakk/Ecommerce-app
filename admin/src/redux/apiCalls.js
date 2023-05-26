@@ -79,17 +79,3 @@ export const addProducts = async (product, dispatch) => {
         dispatch(addProductFailure())
     }
 }
-
-// export const getUser = async (dispatch) => {
-
-//     dispatch(getUsersStart())
-
-//     try {
-//         const res = await publicRequest.get("/users")
-        
-//         dispatch(getUsersSuccess(res.data))
-
-//     } catch (error) {
-//         dispatch(getUsersFailure())
-//     }
-// }
