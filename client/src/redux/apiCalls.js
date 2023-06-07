@@ -1,5 +1,5 @@
 import { publicRequest } from "../requestMethods";
-import { clearCart } from "./cartRedux";
+import { clearCart, removeItem } from "./cartRedux";
 import { loginFailure, loginStart, loginSuccess, logoutUser, registerFailure, registerStart, registerSuccess } from "./userRedux";
 
 export const login = async (dispatch, user) => {
@@ -25,8 +25,19 @@ export const logout = async (dispatch, user) => {
     }
 }
 
+export const removeItemCart = async (dispatch) => {
+
+    try {        
+        dispatch(removeItem())
+    } catch (error) {
+        // console.log("Couldn't remove product");
+        console.log(error);
+    }
+}
+
+
 export const registerUser = async (dispatch, user) => {
-    
+
     dispatch(registerStart())
 
     try {

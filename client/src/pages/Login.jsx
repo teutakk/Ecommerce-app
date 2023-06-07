@@ -3,6 +3,7 @@ import {mobile} from "../responsive";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/apiCalls";
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
   width: 100vw;
@@ -57,7 +58,7 @@ const Button = styled.button`
   }
 `;
 
-const Link = styled.a`
+const Links = styled.a`
   margin: 5px 0px;
   font-size: 12px;
   text-decoration: underline;
@@ -94,10 +95,14 @@ const Login = () => {
             // type="password"
             onChange={(e) => setPassword(e.target.value)} 
           />
-          <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
-          {error && <Error>Something wrong</Error>}
-          <Link>DO NOT YOU REMEMBER THE PASSWORD?</Link>
-          <Link>CREATE A NEW ACCOUNT</Link>
+          
+
+            <Button onClick={handleClick} disabled={isFetching}>LOGIN</Button>
+            {error && <Error>Something wrong</Error>}
+            
+            <Link style={{color: "#2a2a2a", fontSize: "max(15px, 1vw)"}} to="../register" >CREATE A NEW ACCOUNT</Link>
+
+          <Links>DO YOU REMEMBER THE PASSWORD?</Links>
         </Form>
       </Wrapper>
     </Container>

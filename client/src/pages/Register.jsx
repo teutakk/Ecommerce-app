@@ -1,8 +1,12 @@
 import styled from "styled-components";
 import { mobile } from "../responsive";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../redux/apiCalls";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Link, useNavigate } from "react-router-dom";
+
 
 const Container = styled.div`
   width: 100vw;
@@ -52,12 +56,21 @@ const Button = styled.button`
   width: 40%;
   border: none;
   padding: 15px 20px;
+  margin-bottom: 12px;
   background-color: teal;
   color: white;
   cursor: pointer;
 `;
 
 const Register = () => {
+
+  const notify = () => toast.success("Registering User Successful!");
+  const notifyErr = () => toast.error("Registering User Failed!");
+
+  const {isFetching, error} = useSelector((state) => state.user)
+
+  const navigate = useNavigate()
+
   const [email, setEmail] = useState("")
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -68,30 +81,43 @@ const Register = () => {
     e.preventDefault()
     registerUser(dispatch, {email, username, password})
   }
-
+  const onClick = (e) => {
+    error ? notifyErr() : notify()
+ 
+    handleClick(e);
+  }
   return (
     <Container>
       <Wrapper>
         <Title>CREATE AN ACCOUNT</Title>
         <Form>
-          {/* <Input placeholder="name" />
-          <Input placeholder="last name" /> */}
+          
           <Input placeholder="username" 
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUsername(e.target.value) }
+            required
           />
-          <Input placeholder="email"
+          <span></span>
+          <Input placeholder="email" type="email"
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
           <Input placeholder="password" 
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
           {/* <Input placeholder="confirm password" /> */}
           <Agreement>
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <Button onClick={handleClick} >CREATE</Button>
+          <Button onClick={onClick} disabled={isFetching}>
+            Create
+          </Button>           
+          <ToastContainer  />
         </Form>
+        <Link style={{color:"#111", textDecoration:"none", display: "flex"}} 
+              to="/login">Already have an account?
+        </Link>
       </Wrapper>
     </Container>
   );

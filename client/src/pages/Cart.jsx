@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { userRequest } from "../requestMethods"
 import { Link, useNavigate } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
+import { removeItemCart } from "../redux/apiCalls";
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -222,6 +223,9 @@ const Cart = () => {
        
   }, [stripeToken, cart.total, navigate, dispatch, cart])
 
+  // const removeItem = () =>{
+
+  // }
   return (
     <Container>
       <Navbar />
@@ -255,7 +259,7 @@ const Cart = () => {
                   </ProductId>
                   <ProductColor color={product.color} />
                   <ProductSize>
-                    <b>Size:</b> {product.size}
+                    <b>Size:</b> {product.size[1]}
                   </ProductSize>
                 </Details>
               </ProductDetail>
@@ -269,7 +273,7 @@ const Cart = () => {
                   <Add onClick={() => handleQuantity("asc", product._id)} style={{cursor: "pointer"}} /> */}
                 </ProductAmountContainer>
                 <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
-                <div>Remove from Cart</div>
+                <div style={{border: "2px solid red"}} onClick={() => removeItemCart(dispatch)}>Delete</div>
               </PriceDetail>
             </Product>
               

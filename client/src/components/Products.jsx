@@ -15,6 +15,7 @@ const Products = ({cat, filters, sort, search}) => {
 
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  // const [searchProducts, setSearchProducts] = useState([]);
 
   useEffect(() => {
     const getProducts = async ()=>{
@@ -42,9 +43,17 @@ const Products = ({cat, filters, sort, search}) => {
       )
     )
   )
-  },[products, cat, filters])
+  },[products, cat, filters, search])
   
-
+  // useEffect(() => {
+  //   cat && setSearchProducts(
+  //     products.filter((item) => {
+  //       Object.entries(search).every(([key, value]) => 
+  //         item[key].includes(value)
+  //       )
+  //     })
+  //   )
+  // }, [searchProducts])
 
   useEffect(() =>{
     if(sort === "Newest"){
@@ -67,10 +76,6 @@ const Products = ({cat, filters, sort, search}) => {
       );
     }
   }, [sort])
-
-  useEffect(() => {
-
-  })
 
   return (
     <Container>

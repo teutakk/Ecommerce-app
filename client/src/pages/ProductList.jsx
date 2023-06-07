@@ -71,7 +71,6 @@ const ProductList = () => {
   useEffect(() => {
 
     const getProducts = async () => {
-
       try {
         const res = await publicRequest.get(`/products/`)
         setProduct(res.data)
@@ -80,7 +79,6 @@ const ProductList = () => {
       }
     }
       getProducts()
-    
   }, [])
 
 
@@ -114,11 +112,14 @@ const ProductList = () => {
       <Announcement />
       <Title>Products</Title>
       <SearchContainer>
-            <Input placeholder="Search" name="search" onChange={(e) => setQuery(e.target.value)} />
+            <Input 
+              placeholder="Search" 
+              name="search" 
+              onChange={(e) => setQuery(e.target.value)} 
+            />
             <Search style={{ color: "gray", fontSize: 16, position:"relative" }} >
-                  <span style={{position: "absolute", backgroundColor: "red"}}>{query.length === 0 || query.length > 2 ? "": "error"}</span>
-              </Search>
-          </SearchContainer>
+            </Search>
+      </SearchContainer>
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>

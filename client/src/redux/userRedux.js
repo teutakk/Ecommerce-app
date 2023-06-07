@@ -35,7 +35,6 @@ const userSlice = createSlice({
             state.isFetching = false
             state.error = true
         },
-
     }
 });
 
