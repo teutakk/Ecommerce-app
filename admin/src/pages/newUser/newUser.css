@@ -4,7 +4,8 @@
 
 .newUserForm {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  /* flex-wrap: wrap; */
 }
 
 .newUserItem {
@@ -45,13 +46,14 @@
 }
 
 .newUserButton{
-    width: 200px;
+    width: 170px;
+    /* width: fit-content;k */
     border: none;
     background-color: darkblue;
     color: white;
-    padding: 7px 10px;
+    padding: 10px 10px;
     font-weight: 600;
-    border-radius: 10px;
+    border-radius: 22px;
     margin-top: 30px;
     cursor: pointer;
 }

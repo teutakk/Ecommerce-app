@@ -15,11 +15,14 @@ import { userRequest } from "../../requestMethods";
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await userRequest.get("users/?new=true")
+        const res = await userRequest.get("/users/")
         setUsers(res.data)
-      } catch {}
+      } catch (error){
+        console.log(error)
+      }
     }
     getUsers()
+    // console.log(users[3]?.isAdmin)
 
   }, [])
 
@@ -28,7 +31,13 @@ import { userRequest } from "../../requestMethods";
   // })
 
   // const handleDelete = (id) => {
-  //   setData(data.filter((item) => item.id !== id));
+  //   // setData(data.filter((item) => item.id !== id));
+  //   try {
+  //     const res = userRequest.delete(`/users/${id}`)
+  //   } catch (error) {
+      
+  //   }
+
   // };
   
   const columns = [
@@ -41,7 +50,7 @@ import { userRequest } from "../../requestMethods";
         {
           return (
             <div className="userListUser">
-              <img className="userListImg" src={params.row.avatar} alt="" />
+              <img className="userListImg" src="https://www.pngarts.com/files/5/User-Avatar-PNG-Image.png" alt="" />
               {params.row.title}
             </div>
           );
@@ -70,9 +79,10 @@ import { userRequest } from "../../requestMethods";
                 <Link to={"/users/" + params.row._id}>
                   <button className="userListEdit">Edit</button>
                 </Link>
-                <DeleteOutline
+                {/* <DeleteOutline
                   className="userListDelete"
-                />
+                  // onClick={() => handleDelete(params.row._id)}
+                /> */}
               </>
             );
       },
@@ -82,9 +92,10 @@ import { userRequest } from "../../requestMethods";
   return (
     <div className="userList">
       <DataGrid
-        rows={userRows}
+        rows={users}
         disableSelectionOnClick
         columns={columns}
+        getRowId = {(row) => row._id}
         pageSize={8}
         checkboxSelection
       />

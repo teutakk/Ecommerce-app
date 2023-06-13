@@ -11,7 +11,9 @@ import { useEffect } from "react";
 import { userRequest } from "../requestMethods"
 import { Link, useNavigate } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
-import { removeItemCart } from "../redux/apiCalls";
+import { createOrder, removeItemCart } from "../redux/apiCalls";
+import { addOrder } from "../redux/orderRedux";
+// import { log } from "console";
 
 const KEY = process.env.REACT_APP_STRIPE
 
@@ -170,30 +172,61 @@ const Button = styled.button`
 const Cart = () => {
 
   const cart = useSelector((state) => state.cart)
+
   const user = useSelector((state) => state.user.currentUser)
+  // const products = useSelector((state) => state.user.products)
+  // console.log(user._id);
   // const order = useSelector((state) => state.order)
 
   const [stripeToken, setStripeToken] = useState(null)
+
+  const [order, setOrder] = useState({})
   
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
+  // console.log(order);
 
   const onToken = (token) =>{
     setStripeToken(token)
+
+    const userId = user._id
+    for(let i = 0; i< cart.products.length; i++){
+      const productsId = cart.products[i]._id
+    }
+    const products2Id = cart.products[0]._id
+    const quantity = cart.products[0].quantity
+    const arr = [products2Id, quantity]
+    const amount = cart.total
+    const address = "ss"
+
+    // createOrder(dispatch, order)
+    createOrder(dispatch, {userId, arr:[products2Id, quantity], amount, address})
+    console.log({userId, arr:[products2Id, quantity], amount, address});
   }
 
-  // useEffect(() => {
-  //   const getOrder = async () => {
-  //     try {
-  //       const res = await publicRequest.get("/products/find/" + id)
-  //       setProduct(res.data)
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   getOrder()
-  // }, [id])
+  const onClick = (e) => {
+    e.preventDefault()
+
+    // console.log(order)
+    // const order = {user._id, cart};
+    // setOrder(user._id, cart.products._id)
+    // console.log(order);
+    // const {cart, user} = order
+    // const userId = user._id
+    // for(let i = 0; i< cart.products.length; i++){
+    //   const productsId = cart.products[i]._id
+    // }
+    // const products2Id = cart.products[0]._id
+    // const quantity = cart.products[0].quantity
+    // const arr = [products2Id, quantity]
+    // const amount = cart.total
+    // const address = "ss"
+
+    // // createOrder(dispatch, order)
+    // createOrder(dispatch, {userId, arr:[products2Id, quantity], amount, address})
+    // console.log({userId, arr:[products2Id, quantity], amount, address});
+  }
 
   useEffect(() => {
     const makeRequest = async() => {
@@ -203,13 +236,16 @@ const Cart = () => {
             tokenId: stripeToken.id,
             amount: cart.total * 100
           })
-          navigate("/success", {stripeData: res.data, 
-            products: cart,
+          
+          navigate("/success", {state: {stripeData: res.data, 
+              products: cart,
+              users: user
+            }
           })
           dispatch(clearCart())
         }
         else{
-          navigate("/failed")
+          navigate("/failed") 
         }
 
       } catch (error) {
@@ -223,9 +259,6 @@ const Cart = () => {
        
   }, [stripeToken, cart.total, navigate, dispatch, cart])
 
-  // const removeItem = () =>{
-
-  // }
   return (
     <Container>
       <Navbar />
@@ -233,7 +266,7 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton> <Link to={`/products/woman`}>CONTINUE SHOPPING</Link></TopButton>
+          <TopButton> <Link to={`/categories`}>CONTINUE SHOPPING</Link></TopButton>
           <TopTexts>
           
             <TopText>Shopping Bag({cart.quantity})</TopText>
@@ -245,9 +278,9 @@ const Cart = () => {
           <Info>
             {cart.products.map(product => {
               
-              return(
+            return(
 
-            <Product key={product._id} >
+            <Product  >
               <ProductDetail>
                 <Image src={product.img} />
                 <Details>
@@ -309,7 +342,7 @@ const Cart = () => {
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
-              onClick={() => dispatch(clearCart())}
+              // onClick={onClick}
             >
               <Button>CHECKOUT NOW</Button>
             </StripeCheckout>

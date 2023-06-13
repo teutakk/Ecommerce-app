@@ -4,7 +4,7 @@ const { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } = requir
 const router = require("express").Router();
 
 //Create Order
-router.post("/", verifyTokenAndAdmin, async (req, res)=>{
+router.post("/", verifyToken, async (req, res)=>{
 
     const newOrder = new Order(req.body)
 

@@ -11,9 +11,11 @@ export default function WidgetLg() {
   useEffect(() => {
     const getOrders = async () => {
       try {
-        const res = await userRequest.get("orders")
+        const res = await userRequest.get("/orders")
         setOrders(res.data)
-      } catch {}
+      } catch (error){
+        console.log(error);
+      }
     }
     getOrders()
 
@@ -25,6 +27,7 @@ export default function WidgetLg() {
   return (
     <div className="widgetLg">
       <h3 className="widgetLgTitle">Latest transactions</h3>
+      <div className="widgetLgTableContainer">
       <table className="widgetLgTable">
         <tr className="widgetLgTr">
           <th className="widgetLgTh">Customer</th>
@@ -52,6 +55,7 @@ export default function WidgetLg() {
           )
         })}
       </table>
+      </div>
     </div>
   );
 }

@@ -31,7 +31,7 @@ const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user)
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route path="/users" element={<UserList />}></Route>
-            <Route path="/user/:userId" element={<User />}></Route>
+            <Route path="/users/:userId" element={<User />}></Route>
             <Route path="/newUser" element={<NewUser />}> </Route>
             <Route path="/products" element={<ProductList />}></Route>
             <Route path="/product/:productId" element={<Product />}></Route>

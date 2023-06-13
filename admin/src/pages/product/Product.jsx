@@ -105,13 +105,14 @@ export default function Product() {
           }, 
           (error) => {
             // Handle unsuccessful uploads
+            console.log(error)
           }, 
           () => {
             // Handle successful uploads on complete
             // For instance, get the download URL: https://firebasestorage.googleapis.com/...
             getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-              const product = {...inputs, img:downloadURL};
-              updateProducts(productId, product, dispatch)
+              const product = {...inputs, img: downloadURL};
+              updateProducts (productId, product, dispatch)
             });
           }
         );

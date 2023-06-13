@@ -9,7 +9,10 @@
   font-size: 22px;
   font-weight: 600;
 }
-
+.widgetLgTableContainer{
+  overflow-y: auto;
+  max-height: max(15vw, 300px);
+}
 .widgetLgTable{
   width: 100%;
   border-spacing: 20px;

@@ -24,7 +24,7 @@ const cartSlice = createSlice({
         removeItem: (state, action) => 
             void (
                 (state.total = 0),
-                (state.quantity > 0) && (state.quantity -= 1)
+                (state.quantity > 0) && (state.quantity -= 1),  
                 (state.products.splice(action.payload , 1))
                 // state.products.splice(
                 //     state.products.findIndex(item => item._id === action.payload), 1
