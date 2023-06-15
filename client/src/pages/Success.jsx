@@ -22,7 +22,7 @@ const Success = () => {
 
         {products.products.map((prod) => {
           return(
-            <div className="container" key={prod._id}>
+            <div className="container" key={prod.title}>
               <ul className="responsive-table">
                 <li className="table-header">
                   <div className="col col-1">Product Id</div>
@@ -31,10 +31,10 @@ const Success = () => {
                   <div className="col col-4">Quantity</div>
                 </li>
                 <li className="table-row">
-                  <div className="col col-1" data-label="Job Id">{prod._id}</div>
+                  <div className="col col-1" data-label="Product Id">{prod._id}</div>
                   <div className="col col-2" data-label="Product Name">{prod.title}</div>
-                  <div className="col col-3" data-label="Amount">${prod.price}</div>
-                  <div className="col col-4" data-label="Amount"> {prod.quantity}</div>                 
+                  <div className="col col-3" data-label="Price">${prod.price}</div>
+                  <div className="col col-4" data-label="Quantity"> {prod.quantity}</div>                 
                 </li>
               </ul>
             </div>
@@ -46,7 +46,7 @@ const Success = () => {
         </div>
   
        </div>
-       <Link to="../cart" >O back to Cart</Link>
+       <Link to="../cart" >Go back to Cart</Link>
     </div>
   )
 }

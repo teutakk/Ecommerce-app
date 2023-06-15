@@ -1,6 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { addProductFailure, addProductStart, addProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess, getProductFailure, getProductStart, getProductSuccess, updateProductFailure, updateProductStart, updateProductSuccess } from "./productRedux";
 import { getUsersFailure, getUsersStart, getUsersSuccess, loginFailure, loginStart, loginSuccess, logout } from "./userRedux";
+import { addUserFailure, addUserStart, addUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "./usersRedux";
 
 export const login = async (dispatch, user) => {
 
@@ -78,5 +79,32 @@ export const addProducts = async (product, dispatch) => {
 
     } catch (error) {
         dispatch(addProductFailure())
+    }
+}
+
+export const updateUsers = async (id, users, dispatch) => {
+
+    dispatch(updateUserStart())
+
+    try {
+        const res = await userRequest.put(`/users/${id}`, users)
+        
+        dispatch(updateUserSuccess(id, res.data))
+
+    } catch (error) {
+        dispatch(updateUserFailure())
+    }
+}
+export const addUsers = async (user, dispatch) => {
+
+    dispatch(addUserStart())
+
+    try {
+        const res = await userRequest.post(`/auth/register`, user)
+        
+        dispatch(addUserSuccess(res.data))
+
+    } catch (error) {
+        dispatch(addUserFailure())
     }
 }

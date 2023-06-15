@@ -14,15 +14,15 @@ import { userRequest } from "../../requestMethods";
 import { useEffect } from "react";
 import { DeleteOutline } from "@material-ui/icons";
 
+
 export default function User() {
   const location = useLocation()
+  const navigate = useNavigate()
 
   const userId = location.pathname.split("/")[2]
   const [user, setUser] = useState()
-
-
-  const navigate = useNavigate()
-       
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [inputs, setInputs] = useState({})
     
   useEffect(() => {
     const getUser = async () => {
@@ -37,27 +37,50 @@ export default function User() {
 
   }, [])
 
-  // const [desc, setDesc] = useState("")
-  // const [title, setTitle] = useState("")
-  // const [price, setPrice] = useState(0)
-  // const [ inputs, setInputs] = useState({})
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return{...prev, [e.target.name]: e.target.value}
+    })
+    console.log(inputs)
+  }
+  const updateUser = async (users) => {
+    try {
 
+      const res = await userRequest.put(`/users/${userId}`, users)
+      console.log(res.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-  // const handleChange = (e) => {
-  //   setInputs((prev) => {
-  //     return{...prev, [e.target.name]: e.target.value}
-  //   })
-  // }
+  const handleClick = (e) => {
+    e.preventDefault()
 
-  // const update = () => {
-  //   updateProducts(productId, )
-  // }
+    try {
+      const userData = {...inputs}
+      
+      updateUser( userData)
+
+    } catch (error) {
+      console.log(error);
+    }
+    
+  }
+ 
   const handleDelete = () => {
     try {
-      const res = userRequest.delete(`/users/${userId}`)
-      navigate("/users")
+      if (confirmDelete) {
+
+        const res = userRequest.delete(`/users/${userId}`)
+
+        navigate("/users")
+      } 
+      else{
+        setConfirmDelete(true);
+      }
+
     } catch (error) {
-      
+      console.log(error);
     }
   }
   return (
@@ -82,28 +105,16 @@ export default function User() {
             </div>
           </div>
           <div className="userShowBottom">
-            {/* <span className="userShowTitle">Account Details</span> */}
-            {/* <div className="userShowInfo">
-              <PermIdentity className="userShowIcon" />
-              <span className="userShowInfoTitle">annabeck99</span>
-            </div> */}
-            {/* <div className="userShowInfo">
-              <CalendarToday className="userShowIcon" />
-              <span className="userShowInfoTitle">10.12.1999</span>
-            </div> */}
+            
             <span className="userShowTitle">Contact Details</span>
-            {/* <div className="userShowInfo">
+            <div className="userShowInfo">
               <PhoneAndroid className="userShowIcon" />
               <span className="userShowInfoTitle">+1 123 456 67</span>
-            </div> */}
+            </div>
             <div className="userShowInfo">
               <MailOutline className="userShowIcon" />
               <span className="userShowInfoTitle">{user?.email}</span>
             </div>
-            {/* <div className="userShowInfo">
-              <LocationSearching className="userShowIcon" />
-              <span className="userShowInfoTitle">New York | USA</span>
-            </div> */}
           </div>
         </div>
         <div className="userUpdate">
@@ -114,50 +125,37 @@ export default function User() {
                 <label>Username</label>
                 <input
                   type="text"
+                  name="username"
                   placeholder={user?.username}
                   className="userUpdateInput"
+                  onChange={handleChange}
                 />
               </div>
               <div className="userUpdateItem">
                 <label>Email</label>
                 <input
                   type="text"
+                  name="email"
                   placeholder={user?.email}
                   className="userUpdateInput"
+                  onChange={handleChange}
                 />
               </div>
-              {/* <div className="userUpdateItem">
-                <label>Phone</label>
-                <input
-                  type="text"
-                  placeholder="+1 123 456 67"
-                  className="userUpdateInput"
-                />
-              </div> */}
-              {/* <div className="userUpdateItem">
-                <label>Address</label>
-                <input
-                  type="text"
-                  placeholder="New York | USA"
-                  className="userUpdateInput"
-                />
-              </div> */}
+              
             </div>
             <div className="userUpdateRight">
-              {/* <div className="userUpdateUpload">
-                <img
-                  className="userUpdateImg"
-                  src="https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
-                  alt=""
-                />
-                <label htmlFor="file">
-                  <Publish className="userUpdateIcon" />
-                </label>
-                <input type="file" id="file" style={{ display: "none" }} />
-              </div> */}
-              <button className="userUpdateButton">Update</button>
-              <DeleteOutline onClick={handleDelete} style={{color: "red"}} />
-
+              <button className="userUpdateButton" onClick={ handleClick }>Update</button>
+              {confirmDelete ? 
+                <div className="block" >
+                  <button className="confirm buttons" onClick={ handleDelete } >Confirm</button>
+                  <button className="cancel buttons" onClick={() => setConfirmDelete(false)} >Cancel</button>
+                </div>
+              :
+                <div className="deleteBtn" onClick={handleDelete}>
+                  <DeleteOutline style={{color: "#fff"}} />
+                  <span className="deleteTxt">Delete User</span>
+                </div> 
+              }
             </div>
           </form>
         </div>

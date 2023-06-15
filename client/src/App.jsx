@@ -9,12 +9,14 @@ import Success from "./pages/Success";
 import { useSelector } from "react-redux";
 import Failed from "./pages/Failed";
 import CategoriesPage from "./pages/CategoriesPage";
+import ScrollToTop from "./ScrollToTop";
 
 const App = () => {
   const user  = useSelector(state => state.user.currentUser);
   // // const user = false
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route exact path="/" element={<Home />}></Route>
         <Route path="/products/:category" element={<ProductList />}></Route>

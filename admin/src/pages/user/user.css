@@ -19,6 +19,22 @@
   color: white;
   font-size: 16px;
 }
+.deleteBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* border: 2px solid red; */
+  background-color: red;
+  padding: 1px;
+  border-radius: max(5px, .4vw );
+  cursor: pointer;
+}
+.deleteTxt{
+  color: #fff;
+  padding: 5px 7px;
+  font-weight: 600;
+  font-size: max(15px, 1vw);
+}
 
 .userContainer {
   display: flex;
@@ -39,6 +55,7 @@
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   margin-left: 20px;
 }
+
 
 .userShowTop {
   display: flex;
@@ -146,9 +163,24 @@
 .userUpdateButton{
     border-radius: 5px;
     border: none;
-    padding: 5px;
+    padding: 9px;
     cursor: pointer;
     background-color: darkblue;
     color: white;
     font-weight: 600;
+}
+.block{
+  display: flex;
+  gap: 15px;
+}
+.buttons{
+  color: #fff;
+  border: none;
+  padding: 5px 6px;
+}
+.confirm{
+  background-color: rgb(226, 14, 14);
+}
+ .cancel{
+  background-color: rgb(12, 12, 151);
 }

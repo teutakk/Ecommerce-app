@@ -12,7 +12,6 @@ import { userRequest } from "../requestMethods"
 import { Link, useNavigate } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
 import { createOrder, removeItemCart } from "../redux/apiCalls";
-import { addOrder } from "../redux/orderRedux";
 // import { log } from "console";
 
 const KEY = process.env.REACT_APP_STRIPE
@@ -190,43 +189,19 @@ const Cart = () => {
   const onToken = (token) =>{
     setStripeToken(token)
 
-    const userId = user._id
-    for(let i = 0; i< cart.products.length; i++){
-      const productsId = cart.products[i]._id
-    }
-    const products2Id = cart.products[0]._id
-    const quantity = cart.products[0].quantity
-    const arr = [products2Id, quantity]
+    const userId = user?._id
+    const products = cart.products.map(product => ({
+      productId: product._id,
+      quantity: product.quantity
+    }));
     const amount = cart.total
-    const address = "ss"
+    const address = token.card?.address_city
 
-    // createOrder(dispatch, order)
-    createOrder(dispatch, {userId, arr:[products2Id, quantity], amount, address})
-    console.log({userId, arr:[products2Id, quantity], amount, address});
+    createOrder(dispatch, {userId, products, amount, address})
+    console.log(token)
+    // console.log({userId, products, amount, address});
   }
 
-  const onClick = (e) => {
-    e.preventDefault()
-
-    // console.log(order)
-    // const order = {user._id, cart};
-    // setOrder(user._id, cart.products._id)
-    // console.log(order);
-    // const {cart, user} = order
-    // const userId = user._id
-    // for(let i = 0; i< cart.products.length; i++){
-    //   const productsId = cart.products[i]._id
-    // }
-    // const products2Id = cart.products[0]._id
-    // const quantity = cart.products[0].quantity
-    // const arr = [products2Id, quantity]
-    // const amount = cart.total
-    // const address = "ss"
-
-    // // createOrder(dispatch, order)
-    // createOrder(dispatch, {userId, arr:[products2Id, quantity], amount, address})
-    // console.log({userId, arr:[products2Id, quantity], amount, address});
-  }
 
   useEffect(() => {
     const makeRequest = async() => {
@@ -282,17 +257,17 @@ const Cart = () => {
 
             <Product  >
               <ProductDetail>
-                <Image src={product.img} />
+                <Image src={product?.img} />
                 <Details>
                   <ProductName>
-                    <b>Product:</b> {product.title}
+                    <b>Product:</b> {product?.title}
                   </ProductName>
                   <ProductId>
-                    <b>ID:</b> {product._id}
+                    <b>ID:</b> {product?._id}
                   </ProductId>
-                  <ProductColor color={product.color} />
+                  <ProductColor color={product?.color} />
                   <ProductSize>
-                    <b>Size:</b> {product.size[1]}
+                    <b>Size:</b> {product?.size[1]}
                   </ProductSize>
                 </Details>
               </ProductDetail>

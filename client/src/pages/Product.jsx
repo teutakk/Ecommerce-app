@@ -163,6 +163,7 @@ const Product = () => {
     dispatch(
       addProduct({ ...product, quantity, color, size})
     )
+    // document.getElementById("addToCartBtn").disabled = true;
   }
 
   return (
@@ -208,7 +209,7 @@ const Product = () => {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity("asc")} style={{cursor: "pointer"}}/>
             </AmountContainer>
-            <Button onClick={handleClick}>ADD TO CART</Button>
+            <Button id="addToCartBtn" onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>

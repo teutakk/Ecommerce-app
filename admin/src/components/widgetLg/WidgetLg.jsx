@@ -29,15 +29,19 @@ export default function WidgetLg() {
       <h3 className="widgetLgTitle">Latest transactions</h3>
       <div className="widgetLgTableContainer">
       <table className="widgetLgTable">
-        <tr className="widgetLgTr">
-          <th className="widgetLgTh">Customer</th>
-          <th className="widgetLgTh">Date</th>
-          <th className="widgetLgTh">Amount</th>
-          <th className="widgetLgTh">Status</th>
-        </tr>
+        <thead>
+          <tr className="widgetLgTr">
+            <th className="widgetLgTh">Customer</th>
+            <th className="widgetLgTh">Date</th>
+            <th className="widgetLgTh">Amount</th>
+            <th className="widgetLgTh">Status</th>
+          </tr>
+        </thead>
+       
         {orders.map((order) => {
           return(
-            <tr className="widgetLgTr" key={order._id}>
+            <tbody key={order._id}>
+            <tr className="widgetLgTr" >
               <td className="widgetLgUser">
                 <img
                   src="https://images.pexels.com/photos/4172933/pexels-photo-4172933.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
@@ -52,6 +56,7 @@ export default function WidgetLg() {
                 <Button type={order.status} />
               </td>
             </tr>
+            </tbody>
           )
         })}
       </table>

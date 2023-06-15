@@ -23,7 +23,8 @@ const userSlice = createSlice({
             state.currentUser = null;
             state.isFetching = false;
             state.error = false
-        }
+        },
+        
     }
 });
 
