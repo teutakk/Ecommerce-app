@@ -11,7 +11,6 @@ import { userRequest } from "../../requestMethods";
  const UserList = () => {
   const [users, setUsers] = useState([])
 
-  // const ss = useSelector()
   useEffect(() => {
     const getUsers = async () => {
       try {
@@ -22,26 +21,12 @@ import { userRequest } from "../../requestMethods";
       }
     }
     getUsers()
-    // console.log(users[3]?.isAdmin)
 
   }, [])
 
-  // const mapped = users.map((user) => {
-  //   return user
-  // })
-
-  // const handleDelete = (id) => {
-  //   // setData(data.filter((item) => item.id !== id));
-  //   try {
-  //     const res = userRequest.delete(`/users/${id}`)
-  //   } catch (error) {
-      
-  //   }
-
-  // };
   
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 230 },
     {
       field: "user",
       headerName: "User",
@@ -60,16 +45,6 @@ import { userRequest } from "../../requestMethods";
     },
     { field: "email", headerName: "Email", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
-      width: 120,
-    },
-    {
-      field: "transaction",
-      headerName: "Transaction Volume",
-      width: 160,
-    },
-    {
       field: "action",
       headerName: "Action",
       width: 150,
@@ -79,10 +54,6 @@ import { userRequest } from "../../requestMethods";
                 <Link to={"/users/" + params.row._id}>
                   <button className="userListEdit">Edit</button>
                 </Link>
-                {/* <DeleteOutline
-                  className="userListDelete"
-                  // onClick={() => handleDelete(params.row._id)}
-                /> */}
               </>
             );
       },

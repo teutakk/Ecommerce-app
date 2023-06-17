@@ -5,7 +5,6 @@ const orderSlice = createSlice({
     initialState: {
         orders: [],
         amount: 0,
-        // address: ""
     },
     reducers:{
         addOrder : (state, action) => 

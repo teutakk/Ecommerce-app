@@ -12,6 +12,7 @@ import { mobile } from "../responsive";
 
 const Container = styled.div`
   display: flex;
+  flex-wrap: wrap;
   ${mobile({ flexDirection: "column" })}
 `;
 

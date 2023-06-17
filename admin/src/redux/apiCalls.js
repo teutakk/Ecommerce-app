@@ -1,7 +1,7 @@
 import { publicRequest, userRequest } from "../requestMethods";
 import { addProductFailure, addProductStart, addProductSuccess, deleteProductFailure, deleteProductStart, deleteProductSuccess, getProductFailure, getProductStart, getProductSuccess, updateProductFailure, updateProductStart, updateProductSuccess } from "./productRedux";
 import { getUsersFailure, getUsersStart, getUsersSuccess, loginFailure, loginStart, loginSuccess, logout } from "./userRedux";
-import { addUserFailure, addUserStart, addUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "./usersRedux";
+// import { addUserFailure, addUserStart, addUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from "./usersRedux";
 
 export const login = async (dispatch, user) => {
 
@@ -82,29 +82,29 @@ export const addProducts = async (product, dispatch) => {
     }
 }
 
-export const updateUsers = async (id, users, dispatch) => {
+// export const updateUsers = async (id, users, dispatch) => {
 
-    dispatch(updateUserStart())
+//     dispatch(updateUserStart())
 
-    try {
-        const res = await userRequest.put(`/users/${id}`, users)
+//     try {
+//         const res = await userRequest.put(`/users/${id}`, users)
         
-        dispatch(updateUserSuccess(id, res.data))
+//         dispatch(updateUserSuccess(id, res.data))
 
-    } catch (error) {
-        dispatch(updateUserFailure())
-    }
-}
-export const addUsers = async (user, dispatch) => {
+//     } catch (error) {
+//         dispatch(updateUserFailure())
+//     }
+// }
+// export const addUsers = async (user, dispatch) => {
 
-    dispatch(addUserStart())
+//     dispatch(addUserStart())
 
-    try {
-        const res = await userRequest.post(`/auth/register`, user)
+//     try {
+//         const res = await userRequest.post(`/auth/register`, user)
         
-        dispatch(addUserSuccess(res.data))
+//         dispatch(addUserSuccess(res.data))
 
-    } catch (error) {
-        dispatch(addUserFailure())
-    }
-}
+//     } catch (error) {
+//         dispatch(addUserFailure())
+//     }
+// }

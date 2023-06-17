@@ -10,6 +10,7 @@ import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
+import WidgetLg from "./components/widgetLg/WidgetLg";
 
 const App = () => {
 const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user).currentUser?.isAdmin
@@ -36,6 +37,7 @@ const admin = JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user)
             <Route path="/products" element={<ProductList />}></Route>
             <Route path="/product/:productId" element={<Product />}></Route>
             <Route path="/newproduct" element={ <NewProduct />}></Route>
+            <Route path="/transactions" element={ <WidgetLg />}></Route>
           </Routes>
           : null
           }

@@ -27,12 +27,17 @@ export const logout = async (dispatch, user) => {
     }
 }
 
-export const removeItemCart = async (dispatch) => {
-
+export const removeItemCart = async (dispatch, id, quantity, price) => {
+    // console.log(id, quantity, price)
+    const payload = {
+        id,
+        quantity,
+        price
+      };
     try {        
-        dispatch(removeItem())
+        dispatch(removeItem(payload))
+        // console.log(id, quantity, price)
     } catch (error) {
-        // console.log("Couldn't remove product");
         console.log(error);
     }
 }
@@ -60,8 +65,6 @@ export const createOrder = async (dispatch, order) => {
 
       dispatch(addOrder(res.data))
       
-    //   console.log(res.data)
-
     } catch (error) {
         console.log(error);
     }

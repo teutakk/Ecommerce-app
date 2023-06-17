@@ -61,7 +61,7 @@ const Circle = styled.div`
 `;
 
 const Image = styled.img`
-  height: 75%;
+  height: 70%;
   z-index: 2;
 `;
 
@@ -99,9 +99,9 @@ const Product = ({ item }) => {
             <SearchOutlined />
           </Link>
         </Icon>
-        <Icon>
+        {/* <Icon>
           <FavoriteBorderOutlined />
-        </Icon>
+        </Icon> */}
       </Info>
     </Container>
   );

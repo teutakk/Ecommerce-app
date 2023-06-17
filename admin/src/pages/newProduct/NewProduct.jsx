@@ -20,7 +20,7 @@ export default function NewProduct() {
     setCat(e.target.value.split(","))
   }
   const handleClick = (e) => {
-    e.preventDefault()
+    // e.preventDefault()
     const fileName = new Date().getTime() + file.name
     const storage = getStorage(app)
     const storageRef = ref(storage, fileName)

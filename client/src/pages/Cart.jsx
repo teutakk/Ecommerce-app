@@ -12,6 +12,7 @@ import { userRequest } from "../requestMethods"
 import { Link, useNavigate } from "react-router-dom"
 import { clearCart } from "../redux/cartRedux";
 import { createOrder, removeItemCart } from "../redux/apiCalls";
+import {Delete} from '@material-ui/icons';
 // import { log } from "console";
 
 const KEY = process.env.REACT_APP_STRIPE
@@ -252,7 +253,9 @@ const Cart = () => {
         <Bottom>
           <Info>
             {cart.products.map(product => {
-              
+                // console.log(product)
+                // console.log(product.price)
+                // console.log(product.quantity)
             return(
 
             <Product  >
@@ -267,21 +270,23 @@ const Cart = () => {
                   </ProductId>
                   <ProductColor color={product?.color} />
                   <ProductSize>
-                    <b>Size:</b> {product?.size[1]}
+                    {/* <b>Size:</b> {product?.size[1]} */}
                   </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>{product.quantity}</ProductAmount>
-                  <Remove />
+                  {/* <Add /> */}
+                 Quantity: <ProductAmount>{product.quantity}</ProductAmount>
+                  {/* <Remove /> */}
                   {/* <Remove onClick={() => handleQuantity("dec", product._id)} style={{cursor: "pointer"}} />
                   <ProductAmount>{ quantity}</ProductAmount>
                   <Add onClick={() => handleQuantity("asc", product._id)} style={{cursor: "pointer"}} /> */}
                 </ProductAmountContainer>
                 <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
-                <div style={{border: "2px solid red"}} onClick={() => removeItemCart(dispatch)}>Delete</div>
+                <div style={{display:"flex", alignItems:"center", cursor:"pointer", paddingTop:"20px"}} onClick={() => removeItemCart(dispatch, product?._id, product?.quantity, product?.price )}>
+               Delete <Delete />
+                </div>
               </PriceDetail>
             </Product>
               
@@ -317,7 +322,6 @@ const Cart = () => {
               amount={cart.total * 100}
               token={onToken}
               stripeKey={KEY}
-              // onClick={onClick}
             >
               <Button>CHECKOUT NOW</Button>
             </StripeCheckout>

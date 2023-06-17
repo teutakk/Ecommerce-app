@@ -9,7 +9,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 
@@ -27,7 +27,7 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 90vh;
+  height: 100%;
   object-fit: cover;
   ${mobile({ height: "40vh" })}
 `;
@@ -35,6 +35,7 @@ const Image = styled.img`
 const InfoContainer = styled.div`
   flex: 1;
   padding: 0px 50px;
+  border-left: 2px solid #e8e8e8;
   ${mobile({ padding: "10px" })}
 `;
 
@@ -129,6 +130,9 @@ const Product = () => {
 
   const id = location.pathname.split("/")[2];
 
+  const cart = useSelector((state) => state.cart)
+
+
   const [product, setProduct] = useState({})
   const [quantity, setQuantity] = useState(1)
   const [color, setColor] = useState("")
@@ -160,9 +164,10 @@ const Product = () => {
 
   const handleClick = () => {
     // axios.post
-    dispatch(
-      addProduct({ ...product, quantity, color, size})
-    )
+
+      dispatch(
+        addProduct({ ...product, quantity, color, size})
+      )
     // document.getElementById("addToCartBtn").disabled = true;
   }
 
@@ -177,8 +182,8 @@ const Product = () => {
         </ImgContainer>
         <InfoContainer>
           <Title>{product.title}</Title>
-          <Desc>
-          {product.desc}
+          <Desc style={{fontWeight:"600"}}>
+          Product Description: {product.desc}
           </Desc>
           <Price>$ {product.price}</Price>
           <FilterContainer>

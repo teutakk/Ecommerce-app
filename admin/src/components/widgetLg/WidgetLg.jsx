@@ -3,10 +3,16 @@ import "./widgetLg.css";
 import { useEffect } from "react";
 import { userRequest } from "../../requestMethods";
 import {format} from "timeago.js"
+import {clsx} from "clsx"
+import { useLocation } from "react-router-dom";
 
 export default function WidgetLg() {
 
   const [orders, setOrders] = useState([])
+
+  const location = useLocation()
+
+  const transact = location.pathname.split("/")[1]
 
   useEffect(() => {
     const getOrders = async () => {
@@ -27,10 +33,10 @@ export default function WidgetLg() {
   return (
     <div className="widgetLg">
       <h3 className="widgetLgTitle">Latest transactions</h3>
-      <div className="widgetLgTableContainer">
+      <div className={clsx ("widgetLgTableContainer", transact === "transactions" ? "widgetLgTableContainer2" : "")}>
       <table className="widgetLgTable">
         <thead>
-          <tr className="widgetLgTr">
+          <tr className="widgetLgTr2">
             <th className="widgetLgTh">Customer</th>
             <th className="widgetLgTh">Date</th>
             <th className="widgetLgTh">Amount</th>

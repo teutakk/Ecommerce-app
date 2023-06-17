@@ -12,6 +12,11 @@
 .widgetLgTableContainer{
   overflow-y: auto;
   max-height: max(15vw, 300px);
+  border: 1px solid #ddd;
+}
+.widgetLgTableContainer2{
+  overflow-y: auto;
+  max-height: max(30vw, 550px);
 }
 .widgetLgTable{
   width: 100%;

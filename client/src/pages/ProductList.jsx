@@ -111,7 +111,7 @@ const ProductList = () => {
       <Navbar />
       <Announcement />
       <Title>Products</Title>
-      <SearchContainer>
+      {/* <SearchContainer>
             <Input 
               placeholder="Search" 
               name="search" 
@@ -119,7 +119,7 @@ const ProductList = () => {
             />
             <Search style={{ color: "gray", fontSize: 16, position:"relative" }} >
             </Search>
-      </SearchContainer>
+      </SearchContainer> */}
       <FilterContainer>
         <Filter>
           <FilterText>Filter Products:</FilterText>
