@@ -124,6 +124,9 @@
     flex-direction: column;
     margin-top: 10px;
 }
+.userUpdateItem input::placeholder{
+  color: #b8b8b8;
+}
 
 .userUpdateItem>label{
     margin-bottom: 5px;

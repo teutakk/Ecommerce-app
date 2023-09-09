@@ -9,7 +9,7 @@ export default function NewUser() {
   const createUser = async (users) => {
     try {
 
-      const res = await userRequest.post("/auth/register", users)
+      const res = await userRequest.post("/auth/registeradm", users)
 
       console.log(res.data)
 
@@ -21,14 +21,14 @@ export default function NewUser() {
   const handleChange = (e) => {
 
     setInputs((prev) => {
+      console.log(e.target.value)
 
       return{...prev, [e.target.name]: e.target.value}
-
     })    
   }
   const handleClick = (e) => {
 
-    e.preventDefault()
+    // e.preventDefault()
 
     const users = {...inputs}
 
@@ -65,6 +65,18 @@ export default function NewUser() {
             onChange={handleChange}
             />
         </div>
+        <div className="newUserItem2" >
+          <div className="block">
+          <input type="radio" id="isAdminUser" name="isAdmin" onChange={handleChange} value="false" />
+            <label htmlFor="isAdminUser">User</label>
+          </div>
+            <div className="block">
+            <input type="radio" id="isAdminAdmin" name="isAdmin" onChange={handleChange} value="true" />
+            <label htmlFor="isAdminAdmin">Admin</label>
+            </div>
+            
+        </div>
+
         <button className="newUserButton" onClick={handleClick}>Create</button>
       </form>
     </div>

@@ -1,7 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import "./product.css";
 import Chart from "../../components/chart/Chart"
-import {productData} from "../../dummyData"
 import { Publish } from "@material-ui/icons";
 import {useSelector} from "react-redux"
 import { useState } from "react";
@@ -17,20 +16,18 @@ import { useDispatch } from "react-redux"
 export default function Product() {
 
     const location = useLocation()
-
     const productId = location.pathname.split("/")[2]
-    
+
     const dispatch = useDispatch()
 
-    // const [cat, setCat] = useState([])
-
-    const [pStats, setPStats] = useState([])
-    const [ inputs, setInputs] = useState({})
-    const [file, setFile] = useState("")
     
+    const [pStats, setPStats] = useState([])
+    const [inputs, setInputs] = useState({})
+    const [file, setFile] = useState("")    
 
     const product = useSelector((state) => 
         state.product.products.find((product) => product?._id === productId))
+
 
     const MONTHS = useMemo(
         () => [
@@ -137,13 +134,13 @@ export default function Product() {
               </div>
               <div className="productInfoBottom">
                   <div className="productInfoItem">
-                      <span className="productInfoKey">id: </span>
+                      <span className="productInfoKey">id:</span>
                       <span className="productInfoValue">{product?._id}</span>
                   </div>
-                  <div className="productInfoItem">
+                  {/* <div className="productInfoItem">
                       <span className="productInfoKey">sales:</span>
                       <span className="productInfoValue">5123</span>
-                  </div>
+                  </div> */}
                   <div className="productInfoItem">
                       <span className="productInfoKey">in stock:</span>
                       <span className="productInfoValue">{product?.inStock == true ? "true" : "false"}{console.log(product?.inStock)}</span>

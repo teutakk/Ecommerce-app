@@ -9,6 +9,8 @@ const productRoute = require("./routes/product")
 const cartRoute = require("./routes/cart")
 const orderRoute = require("./routes/order")
 const stripeRoute = require("./routes/stripe")
+const ekipaRoute = require("./routes/ekipa")
+const ligaRoute = require("./routes/liga")
 
 // add cors () add stripeRoute
 
@@ -33,6 +35,8 @@ mongoose.connect(process.env.MONGO_URL)
     app.use("/api/carts", cartRoute);
     app.use("/api/orders", orderRoute);
     app.use("/api/checkout", stripeRoute)
+    app.use("/api/ekipa", ekipaRoute)
+    app.use("/api/liga", ligaRoute)
 
 app.listen(process.env.PORT || 5000, ()=>{
     console.log("Backend server is running");

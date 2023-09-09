@@ -6,9 +6,9 @@ const router = require("express").Router();
 //Create Order
 router.post("/", verifyToken, async (req, res)=>{
 
-    const newOrder = new Order(req.body)
 
     try {
+        const newOrder = new Order(req.body)
         
         const savedOrder = await newOrder.save();
         res.status(200).json(savedOrder)

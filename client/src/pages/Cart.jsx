@@ -174,18 +174,14 @@ const Cart = () => {
   const cart = useSelector((state) => state.cart)
 
   const user = useSelector((state) => state.user.currentUser)
-  // const products = useSelector((state) => state.user.products)
-  // console.log(user._id);
-  // const order = useSelector((state) => state.order)
 
   const [stripeToken, setStripeToken] = useState(null)
 
-  const [order, setOrder] = useState({})
+  // const [order, setOrder] = useState({})
   
   const dispatch = useDispatch()
 
   const navigate = useNavigate()
-  // console.log(order);
 
   const onToken = (token) =>{
     setStripeToken(token)
@@ -198,9 +194,8 @@ const Cart = () => {
     const amount = cart.total
     const address = token.card?.address_city
 
-    createOrder(dispatch, {userId, products, amount, address})
-    console.log(token)
-    // console.log({userId, products, amount, address});
+    amount > 0 && createOrder(dispatch, {userId, products, amount, address})
+    // console.log(token)
   }
 
 
@@ -229,6 +224,7 @@ const Cart = () => {
       }
     }
     
+      // if (stripeToken && cart.total > 0) {
       if (stripeToken && cart.total) {
         makeRequest();
       }
@@ -244,56 +240,43 @@ const Cart = () => {
         <Top>
           <TopButton> <Link to={`/categories`}>CONTINUE SHOPPING</Link></TopButton>
           <TopTexts>
-          
             <TopText>Shopping Bag({cart.quantity})</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          {/* <TopButton type="filled">CHECKOUT NOW</TopButton> */}
         </Top>
         <Bottom>
           <Info>
             {cart.products.map(product => {
-                // console.log(product)
-                // console.log(product.price)
-                // console.log(product.quantity)
             return(
 
-            <Product  >
-              <ProductDetail>
-                <Image src={product?.img} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> {product?.title}
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> {product?._id}
-                  </ProductId>
-                  <ProductColor color={product?.color} />
-                  <ProductSize>
-                    {/* <b>Size:</b> {product?.size[1]} */}
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  {/* <Add /> */}
-                 Quantity: <ProductAmount>{product.quantity}</ProductAmount>
-                  {/* <Remove /> */}
-                  {/* <Remove onClick={() => handleQuantity("dec", product._id)} style={{cursor: "pointer"}} />
-                  <ProductAmount>{ quantity}</ProductAmount>
-                  <Add onClick={() => handleQuantity("asc", product._id)} style={{cursor: "pointer"}} /> */}
-                </ProductAmountContainer>
-                <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
-                <div style={{display:"flex", alignItems:"center", cursor:"pointer", paddingTop:"20px"}} onClick={() => removeItemCart(dispatch, product?._id, product?.quantity, product?.price )}>
-               Delete <Delete />
-                </div>
-              </PriceDetail>
-            </Product>
-              
-              )})}
+              <Product  >
+                <ProductDetail>
+                  <Image src={product?.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product?.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product?._id}
+                    </ProductId>
+                    <ProductColor color={product?.color} />
+                    <ProductSize>
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    Quantity: <ProductAmount>{product.quantity}</ProductAmount>                 
+                  </ProductAmountContainer>
+                  <ProductPrice>$ {product.price * product.quantity}</ProductPrice>
+                  <div style={{display:"flex", alignItems:"center", cursor:"pointer", paddingTop:"20px"}} onClick={() => removeItemCart(dispatch, product?._id, product?.quantity, product?.price )}>
+                Delete <Delete />
+                  </div>
+                </PriceDetail>
+              </Product>
+            )})}
 
             <Hr />
-            
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

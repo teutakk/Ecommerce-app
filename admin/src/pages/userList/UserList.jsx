@@ -32,10 +32,19 @@ import { userRequest } from "../../requestMethods";
       headerName: "User",
       width: 200,
       renderCell: (params) => {
+        const isAdmin = users.find(user => user.isAdmin);
         {
           return (
             <div className="userListUser">
-              <img className="userListImg" src="https://www.pngarts.com/files/5/User-Avatar-PNG-Image.png" alt="" />
+               {/* {users.map(user => (
+                  <img
+                    key={user._id}
+                    className="userListImg"
+                    src={user.isAdmin ? "https://www.pngarts.com/files/5/User-Avatar-PNG-Image.png" : "https://www.pngarts.com/files/5/User-Avatar-PNG-Background-Image.png"}
+                    alt={user.isAdmin ? "Admin" : "User"}
+                  />
+                ))} */}
+              { <img className="userListImg" src="https://www.pngarts.com/files/5/User-Avatar-PNG-Image.png" alt="" /> }
               {params.row.title}
             </div>
           );

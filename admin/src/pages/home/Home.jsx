@@ -35,6 +35,7 @@ export default function Home() {
       try {
         const res = await userRequest.get("/users/stats")
         res.data.map(item => {
+          // console.log(item)
           setUserStats((prev) => [
             ...prev,
             {name: MONTHS[item._id - 1], "Active User": item.total },

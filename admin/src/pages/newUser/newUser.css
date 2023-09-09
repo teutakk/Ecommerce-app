@@ -15,7 +15,17 @@
   margin-top: 10px;
   margin-right: 20px;
 }
-
+.newUserItem2 input{
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.newUserItem2 .block{
+  padding: 10px 0;
+}
 .newUserItem > label {
   margin-bottom: 10px;
   font-size: 14px;

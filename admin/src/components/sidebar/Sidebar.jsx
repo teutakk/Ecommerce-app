@@ -13,9 +13,23 @@ import {
   WorkOutline,
   Report,
 } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
 
 export default function Sidebar() {
+  const location = useLocation();
+  const [activeLink, setActiveLink] = useState("");
+
+  useEffect(() => {
+    // Extract the pathname from the location object
+    const currentPath = location.pathname;
+
+    // Set the active link based on the current path
+    setActiveLink(currentPath);
+  }, [location]);
+  
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
@@ -23,7 +37,9 @@ export default function Sidebar() {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
-            <li className="sidebarListItem active">
+            <li className={`sidebarListItem ${
+                activeLink === "/" ? "active" : ""
+              }`}>
               <LineStyle className="sidebarIcon" />
               Home
             </li>
@@ -41,21 +57,27 @@ export default function Sidebar() {
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Quick Menu</h3>
           <ul className="sidebarList">
-            <Link to="/users" className="link ">
-              <li className="sidebarListItem">
+            <Link to="/users" className="link">
+              <li className={`sidebarListItem ${
+                activeLink === "/users" ? "active" : ""
+              }`}>
                 <PermIdentity className="sidebarIcon" />
                 Users
                
               </li>
             </Link>
             <Link to="/products" className="link">
-              <li className="sidebarListItem">
+              <li className={`sidebarListItem ${
+                activeLink === "/products" ? "active" : ""
+              }`}>
                 <Storefront className="sidebarIcon" />
                 Products
               </li>
             </Link>
             <Link to="/transactions" className="link">
-            <li className="sidebarListItem">
+            <li className={`sidebarListItem ${
+                activeLink === "/transactions" ? "active" : ""
+              }`}>
               <AttachMoney className="sidebarIcon" />
               Transactions
             </li>

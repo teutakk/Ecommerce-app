@@ -43,15 +43,11 @@
     }
     .col-1 {
       flex-basis: 20%;
-    //   border: 2px solid red;
     }
     .col-2 {
       flex-basis: 20%;
-    //   border: 2px solid red;
-
     }
     .col-3 {
-    //   border: 2px solid red;
       flex-basis: 20%;
     }
     .col-4 {
@@ -66,9 +62,6 @@
     @media all and (max-width: 767px) {
       .table-header {
         display: none;
-      }
-      .table-row{
-        
       }
       li {
         display: block;

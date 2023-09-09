@@ -20,7 +20,7 @@ export default function NewProduct() {
     setCat(e.target.value.split(","))
   }
   const handleClick = (e) => {
-    // e.preventDefault()
+    e.preventDefault()
     const fileName = new Date().getTime() + file.name
     const storage = getStorage(app)
     const storageRef = ref(storage, fileName)
@@ -55,6 +55,7 @@ export default function NewProduct() {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = {...inputs, img:downloadURL, categories:cat };
           addProducts(product, dispatch)
+          console.log(product)
         });
       }
     );
@@ -84,6 +85,28 @@ export default function NewProduct() {
         <div className="addProductItem">
           <label>Categories</label>
           <input type="text" placeholder="jeans,skirts"  onChange={handleCat}/>
+        </div>
+        <div className="addProductItem">
+          <label>Size</label>
+          <select name="size" onChange={handleChange}>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+          </select>
+        </div>
+        <div className="addProductItem">
+          <label>Color</label>
+          <select name="color" onChange={handleChange}>
+            <option value="white">White</option>
+            <option value="red">Red</option>
+            <option value="black">Black</option>
+            <option value="green">Green</option>
+            <option value="gray">Gray</option>
+            <option value="yellow">Yellow</option>
+            <option value="brown">Brown</option>
+            <option value="blue">Blue</option>
+            <option value="orange">Orange</option>
+          </select>
         </div>
         <div className="addProductItem">
           <label>Stock</label>
